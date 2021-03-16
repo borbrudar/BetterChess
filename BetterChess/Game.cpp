@@ -3,6 +3,7 @@
 Game::Game()
 {
 	window.create(VideoMode(SCR_WIDTH, SCR_HEIGHT), "Chess");
+	board.init("res/chessboard.jpg");
 }
 
 void Game::run()
