@@ -22,6 +22,7 @@ class Piece {
 public:
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
+	void updatePos();
 
 	color color;
 	piece pieceType;
