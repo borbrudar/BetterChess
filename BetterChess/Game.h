@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Board.h"
+#include "Chessboard.h"
 
 using namespace sf;
 
@@ -12,7 +12,7 @@ private:
 	void draw();
 	void update();
 
-	Board board;
+	Chessboard chessboard;
 
 	RenderWindow window;
 	Event event;
