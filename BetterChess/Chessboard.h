@@ -6,11 +6,12 @@
 
 class Chessboard {
 public:
-	Chessboard();
+	void init();
 	void draw(RenderWindow& window);
 	void update(Event &event, Vector2i mousePos);
 private:
-	std::vector<piece> chessboard;
+	std::vector<Piece> pieces;
 	Board board;
-	Rook rook;
+	Texture t;
+	RectangleShape pussy;
 };

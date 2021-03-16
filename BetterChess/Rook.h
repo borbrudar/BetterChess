@@ -4,6 +4,7 @@
 
 class Rook : public Piece {
 public:
-	Rook();
-	void update(std::vector<piece> board, Vector2i newPos);
+	Rook() = default;
+	Rook(const char* path, IntRect texRect);
+	void update(const std::vector<Piece> &board, Vector2i newPos);
 };

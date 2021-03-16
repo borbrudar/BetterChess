@@ -13,19 +13,23 @@ enum class piece {
 	empty
 };
 
-enum class color {
+enum class color_type {
 	white,
 	black
 };
 
-class Piece {
+
+class Piece{
 public:
+	Piece() = default;
+	Piece(const char* path, IntRect texRect);
+	void update(std::vector<Piece>& board, Vector2i mousePos) {};
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
 	void updatePos();
 
-	color color;
-	piece pieceType;
+	piece pieceType = piece::empty;
+	color_type color;
 	Vector2i currentPos;
 private:
 	Texture texture;
