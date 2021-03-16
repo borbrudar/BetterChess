@@ -1,5 +1,4 @@
 #include "Piece.h"
-#include <iostream>
 
 Piece::Piece(const char* path, IntRect texRect)
 {
@@ -20,7 +19,6 @@ void Piece::init(const char* path, IntRect texRect)
 
 void Piece::draw(RenderWindow& window)
 {
-	std::cout << sprite.getPosition().x << " " << sprite.getPosition().y << std::endl;
 	window.draw(sprite);
 }
 

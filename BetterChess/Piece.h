@@ -18,12 +18,14 @@ enum class color_type {
 	black
 };
 
-
+#include <iostream>
 class Piece{
 public:
 	Piece() = default;
 	Piece(const char* path, IntRect texRect);
-	void update(std::vector<Piece>& board, Vector2i mousePos) {};
+	virtual void update(std::vector<Piece*>& board, Vector2i newPos) {
+		std::cout << "base" << std::endl;
+	};
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
 	void updatePos();

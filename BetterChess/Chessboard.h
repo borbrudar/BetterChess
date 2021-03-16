@@ -10,8 +10,7 @@ public:
 	void draw(RenderWindow& window);
 	void update(Event &event, Vector2i mousePos);
 private:
-	std::vector<Piece> pieces;
+	std::vector<Piece*> pieces;
 	Board board;
 	Texture t;
-	RectangleShape pussy;
 };
