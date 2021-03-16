@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Chessboard.h"
+#include "consts.h"
 
 using namespace sf;
 
@@ -16,5 +17,5 @@ private:
 
 	RenderWindow window;
 	Event event;
-	const int SCR_WIDTH = 600, SCR_HEIGHT = SCR_WIDTH ;
+	Mouse mouse;
 };

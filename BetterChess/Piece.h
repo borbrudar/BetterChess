@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "consts.h"
 using namespace sf;
 
 enum class piece {
@@ -28,5 +28,5 @@ public:
 	Vector2i currentPos;
 private:
 	Texture texture;
-	Sprite sprite;
+	RectangleShape sprite;
 };

@@ -26,5 +26,6 @@ void Game::update()
 {
 	while (window.pollEvent(event)) {
 		if (event.type == Event::Closed) window.close();
+		chessboard.update(event, mouse.getPosition(window));
 	}
 }
