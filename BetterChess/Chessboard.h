@@ -6,6 +6,7 @@
 #include "Bishop.h"
 #include "Queen.h"
 #include "King.h"
+#include "Pawn.h"
 #include <vector>
 
 class Chessboard {

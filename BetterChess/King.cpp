@@ -5,7 +5,7 @@ void King::generatePossibleMoves(std::vector<Piece*>& pieces)
 	//every direction
 	for (int incx = -1, incy = -1, count = 0; count < 9; count++) {
 		Vector2i tempVec = Vector2i(currentPos.x + incx, currentPos.y + incy);
-		knight_struct temp = checkIfNewPosOk(tempVec, pieces);
+		check_struct temp = checkIfNewPosOk(tempVec, pieces);
 		if(temp.good)	possibleMoves.push_back(moveType(tempVec, temp.type));
 
 		//update iterators

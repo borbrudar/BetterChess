@@ -5,13 +5,16 @@ void Chessboard::init()
 {
 	board.init("res/chessboard.jpg");
 
-	pieces.resize(6);
-	pieces[0] = new Rook("res/chess-pieces.png", IntRect(853, 0, 213, 213));
-	pieces[1] = new Rook("res/chess-pieces.png", IntRect(853, 214, 213, 213));
-	pieces[2] = new Knight("res/chess-pieces.png", IntRect(640, 0, 213, 213));
-	pieces[3] = new Bishop("res/chess-pieces.png", IntRect(427, 214, 213, 213));
-	pieces[4] = new Queen("res/chess-pieces.png", IntRect(213, 0, 213, 213));
-	pieces[5] = new King("res/chess-pieces.png", IntRect(0, 213, 213, 213));
+	pieces.resize(7);
+	const char* path = "res/chess-pieces.png";
+	pieces[0] = new Rook(path, IntRect(853, 0, 213, 213));
+	pieces[1] = new Rook(path, IntRect(853, 214, 213, 213));
+	pieces[2] = new Knight(path, IntRect(640, 0, 213, 213));
+	pieces[3] = new Bishop(path, IntRect(427, 214, 213, 213));
+	pieces[4] = new Queen(path, IntRect(213, 0, 213, 213));
+	pieces[5] = new King(path, IntRect(0, 213, 213, 213));
+	pieces[6] = new Pawn(path, IntRect(1066, 0, 213, 213));
+
 
 	pieces[0]->currentPos = { 0,0 };
 	pieces[1]->currentPos = { 6,6 };
@@ -19,6 +22,7 @@ void Chessboard::init()
 	pieces[3]->currentPos = { 6,0 };
 	pieces[4]->currentPos = { 1,6 };
 	pieces[5]->currentPos = { 5,4 };
+	pieces[6]->currentPos = { 7,6 };
 	for(int i = 0; i < pieces.size();i++)
 		pieces[i]->updatePos();
 

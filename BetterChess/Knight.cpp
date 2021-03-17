@@ -22,7 +22,7 @@ void Knight::generatePossibleMoves(std::vector<Piece*>& pieces)
 	for (int incx = 2, incy = 1, count = 1; count < 9;count++) {
 		//knight movement
 		Vector2i tempVec = Vector2i(currentPos.x + incx, currentPos.y + incy);
-		knight_struct temp = checkIfNewPosOk(tempVec, pieces);
+		check_struct temp = checkIfNewPosOk(tempVec, pieces);
 		if (temp.good)
 			possibleMoves.push_back(moveType(tempVec, temp.type));
 

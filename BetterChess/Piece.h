@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "consts.h"
+#include <iostream>
 using namespace sf;
 
 enum class piece {
@@ -30,14 +31,13 @@ struct moveType {
 	move_type type;
 };
 
-struct knight_struct {
-	knight_struct(bool good) : good(good) {};
-	knight_struct(bool good, move_type type) :good(good), type(type) {};
+struct check_struct {
+	check_struct(bool good) : good(good) {};
+	check_struct(bool good, move_type type) :good(good), type(type) {};
 	bool good;
 	move_type type;
 };
 
-#include <iostream>
 class Piece{
 public:
 	Piece() = default;
@@ -53,7 +53,7 @@ public:
 protected:
 	move_type checkNewPos(Vector2i newPos);
 	bool checkLine(int& posx, int& posy, std::vector<Piece*> pieces);
-	knight_struct checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces);
+	check_struct checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces);
 
 	Texture texture;
 	RectangleShape sprite;
