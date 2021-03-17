@@ -57,6 +57,19 @@ bool Piece::checkLine(int& posx, int& posy, std::vector<Piece*> pieces)
 	return !addLine;
 }
 
+knight_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces)
+{
+	if (pos.x > squareNumber || pos.x < 0 || pos.y > squareNumber || pos.y < 0) return knight_struct(false);
+
+	for (int i = 0; i < pieces.size(); i++) {
+		if (pieces[i]->currentPos == pos) {
+			if (pieces[i]->color != color) return knight_struct(true, move_type::capture);
+			else return knight_struct(false);
+		}
+	}
+	return knight_struct(true, move_type::move);
+}
+
 void Piece::updatePos()
 {
 	sprite.setPosition(currentPos.x * squareLength, currentPos.y * squareLength);

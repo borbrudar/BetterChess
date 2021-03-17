@@ -35,16 +35,3 @@ void Knight::generatePossibleMoves(std::vector<Piece*>& pieces)
 
 
 }
-
-knight_struct Knight::checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces)
-{
-	if (pos.x > squareNumber || pos.x < 0 || pos.y > squareNumber || pos.y < 0) return knight_struct(false);
-
-	for (int i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->currentPos == pos) {
-			if (pieces[i]->color != color)return knight_struct(true, move_type::capture);
-			else return knight_struct(false);
-		}
-	}
-	return knight_struct(true,move_type::move);
-}
