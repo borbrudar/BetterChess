@@ -26,7 +26,6 @@ void Rook::generatePossibleMoves(std::vector<Piece*>& board)
 
 move_type Rook::update(std::vector<Piece*>& board, Vector2i newPos)
 {	
-	
 	generatePossibleMoves(board);
 	return checkNewPos(newPos);
 }
