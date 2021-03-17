@@ -2,6 +2,7 @@
 #include "Piece.h"
 #include "Board.h"
 #include "Rook.h"
+#include "Knight.h"
 #include <vector>
 
 class Chessboard {

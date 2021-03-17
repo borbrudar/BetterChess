@@ -5,15 +5,17 @@ void Chessboard::init()
 {
 	board.init("res/chessboard.jpg");
 
-	pieces.resize(2);
+	pieces.resize(3);
 	pieces[0] = new Rook("res/chess-pieces.png", IntRect(853, 0, 213, 213));
 	pieces[1] = new Rook("res/chess-pieces.png", IntRect(853, 214, 213, 213));
-
+	pieces[2] = new Knight("res/chess-pieces.png", IntRect(640, 0, 213, 213));
 	
 	pieces[0]->currentPos = { 0,0 };
-	pieces[1]->currentPos = { 3,4 };
+	pieces[1]->currentPos = { 6,6 };
+	pieces[2]->currentPos = { 3,4 };
 	pieces[0]->updatePos();
 	pieces[1]->updatePos();
+	pieces[2]->updatePos();
 
 }
 
@@ -39,6 +41,7 @@ void Chessboard::movePiece(Vector2i mousePos)
 		mousePos.y / squareLength);
 	std::cout << clickedSquare.x << " " << clickedSquare.y << std::endl;
 
+	//check if the selected square has a piece on it
 	if (!isPieceSelected) {
 		for (int i = 0; i < pieces.size(); i++) {
 			if (pieces[i]->currentPos == clickedSquare) {
@@ -50,8 +53,9 @@ void Chessboard::movePiece(Vector2i mousePos)
 		return;
 	}
 
+	//on the second pass check for movement
 	if (pieces[selectedPiece]->update(pieces, clickedSquare) == move_type::capture) {
-		for (int i = 0; i < pieces.size(); i++) {
+		for (auto i = 0; i < pieces.size(); i++) {
 			if (i == selectedPiece) continue;
 			if (pieces[i]->currentPos == pieces[selectedPiece]->currentPos) {
 				pieces.erase(pieces.begin() + i);
