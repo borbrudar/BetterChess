@@ -22,7 +22,9 @@ enum class color_type {
 enum class move_type {
 	move,
 	capture,
-	none
+	none,
+	passant,
+	twice
 };
 
 struct moveType {
@@ -46,10 +48,16 @@ public:
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
 	void updatePos();
+	void resetPassant();
 
+
+	bool hasMoved = false;
 	piece pieceType = piece::empty;
 	color_type color;
 	Vector2i currentPos;
+	//for pawns
+	bool enPassant = false;
+	int captureDirection = -1; // -1 white, 1 black
 protected:
 	move_type checkNewPos(Vector2i newPos);
 	bool checkLine(int& posx, int& posy, std::vector<Piece*> pieces);
@@ -58,4 +66,5 @@ protected:
 	Texture texture;
 	RectangleShape sprite;
 	std::vector<moveType> possibleMoves;
+
 };

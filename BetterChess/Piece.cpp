@@ -28,6 +28,7 @@ move_type Piece::checkNewPos(Vector2i newPos)
 		if (possibleMoves[i].move == newPos) {
 			currentPos = newPos;
 			updatePos();
+			hasMoved = true;
 			return possibleMoves[i].type;
 		}
 	}
@@ -73,4 +74,9 @@ check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces)
 void Piece::updatePos()
 {
 	sprite.setPosition(currentPos.x * squareLength, currentPos.y * squareLength);
+}
+
+void Piece::resetPassant()
+{
+	enPassant = false;
 }
