@@ -5,5 +5,8 @@ class Rook : public Piece {
 public:
 	Rook() = default;
 	Rook(const char* path, IntRect texRect);
-	void update(std::vector<Piece*> &board, Vector2i newPos);
+	void generatePossibleMoves(std::vector<Piece*>& board);
+	move_type update(std::vector<Piece*> &board, Vector2i newPos);
+	bool checkLine(int& posx, int& posy, std::vector<Piece*> board);
+
 };

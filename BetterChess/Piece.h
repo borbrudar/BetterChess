@@ -18,22 +18,34 @@ enum class color_type {
 	black
 };
 
+enum class move_type {
+	move,
+	capture,
+	none
+};
+
+struct moveType {
+	moveType(Vector2i move, move_type type) : move(move), type(type) {};
+	Vector2i move;
+	move_type type;
+};
+
 #include <iostream>
 class Piece{
 public:
 	Piece() = default;
 	Piece(const char* path, IntRect texRect);
-	virtual void update(std::vector<Piece*>& board, Vector2i newPos) {
-		std::cout << "base" << std::endl;
-	};
+	virtual move_type update(std::vector<Piece*>& board, Vector2i newPos) = 0;
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
+	move_type checkNewPos(Vector2i newPos);
 	void updatePos();
 
 	piece pieceType = piece::empty;
 	color_type color;
 	Vector2i currentPos;
-private:
+protected:
 	Texture texture;
 	RectangleShape sprite;
+	std::vector<moveType> possibleMoves;
 };

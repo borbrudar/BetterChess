@@ -7,7 +7,7 @@ void Chessboard::init()
 
 	pieces.resize(2);
 	pieces[0] = new Rook("res/chess-pieces.png", IntRect(853, 0, 213, 213));
-	pieces[1] = new Rook("res/chess-pieces.png", IntRect(853, 0, 213, 213));
+	pieces[1] = new Rook("res/chess-pieces.png", IntRect(853, 214, 213, 213));
 
 	
 	pieces[0]->currentPos = { 0,0 };

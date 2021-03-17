@@ -22,6 +22,19 @@ void Piece::draw(RenderWindow& window)
 	window.draw(sprite);
 }
 
+move_type Piece::checkNewPos(Vector2i newPos)
+{
+	for (int i = 0; i < possibleMoves.size(); i++) {
+		if (possibleMoves[i].move == newPos) {
+			currentPos = newPos;
+			updatePos();
+			return possibleMoves[i].type;
+		}
+	}
+
+	return move_type::none;
+}
+
 void Piece::updatePos()
 {
 	sprite.setPosition(currentPos.x * squareLength, currentPos.y * squareLength);
