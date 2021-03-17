@@ -38,13 +38,15 @@ public:
 	virtual move_type update(std::vector<Piece*>& board, Vector2i newPos) = 0;
 	void init(const char* path, IntRect texRect);
 	void draw(RenderWindow& window);
-	move_type checkNewPos(Vector2i newPos);
 	void updatePos();
 
 	piece pieceType = piece::empty;
 	color_type color;
 	Vector2i currentPos;
 protected:
+	move_type checkNewPos(Vector2i newPos);
+	bool checkLine(int& posx, int& posy, std::vector<Piece*> pieces);
+
 	Texture texture;
 	RectangleShape sprite;
 	std::vector<moveType> possibleMoves;
