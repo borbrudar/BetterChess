@@ -7,37 +7,37 @@ Rook::Rook(const char* path, IntRect texRect)
 	init(path, texRect);
 }
 
-void Rook::generatePossibleMoves(std::vector<Piece*>& board)
+void Rook::generatePossibleMoves(std::vector<Piece*>& pieces)
 {
 	possibleMoves.clear();
 	for (int i = currentPos.x + 1; i < squareNumber; i++) {
-		if (checkLine(i, currentPos.y, board)) break;
+		if (checkLine(i, currentPos.y, pieces)) break;
 	}
 	for (int i = currentPos.x - 1; i >= 0; i--) {
-		if (checkLine(i, currentPos.y, board)) break;
+		if (checkLine(i, currentPos.y, pieces)) break;
 	}
 	for (int i = currentPos.y + 1; i < squareNumber; i++) {
-		if (checkLine(currentPos.x, i, board)) break;
+		if (checkLine(currentPos.x, i, pieces)) break;
 	}
 	for (int i = currentPos.y - 1; i >= 0; i--) {
-		if (checkLine(currentPos.x, i, board)) break;
+		if (checkLine(currentPos.x, i, pieces)) break;
 	}
 }
 
-move_type Rook::update(std::vector<Piece*>& board, Vector2i newPos)
+move_type Rook::update(std::vector<Piece*>& pieces, Vector2i newPos)
 {	
-	generatePossibleMoves(board);
+	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);
 }
 
-bool Rook::checkLine(int& posx, int& posy, std::vector<Piece*> board)
+bool Rook::checkLine(int& posx, int& posy, std::vector<Piece*> pieces)
 {
 	bool addLine = true, addMove = true;
-	for (int j = 0; j < board.size(); j++) {
-		if (board[j]->currentPos == Vector2i(posx, posy)) { 
+	for (int j = 0; j < pieces.size(); j++) {
+		if (pieces[j]->currentPos == Vector2i(posx, posy)) { 
 			addLine = false;
 
-			if (board[j]->color == color) addMove = false;
+			if (pieces[j]->color == color) addMove = false;
 			else addMove = true;
 		}
 	}

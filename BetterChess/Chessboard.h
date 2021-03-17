@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "Rook.h"
 #include "Knight.h"
+#include "Bishop.h"
 #include <vector>
 
 class Chessboard {
