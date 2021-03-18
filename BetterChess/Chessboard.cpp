@@ -23,7 +23,7 @@ void Chessboard::init()
 	pieces[5]->currentPos = { 7,1 };
 	pieces[6]->currentPos = { 6,6 };
 
-	menu.init(path, IntRect(213, 0, 4 * 213, 213));
+	menu.init(path);
 }
 
 void Chessboard::draw(RenderWindow& window)
@@ -40,28 +40,10 @@ void Chessboard::update(Event& event, Vector2i mousePos)
 	if (event.type != Event::MouseButtonReleased) return;
 	if (event.mouseButton.button != Mouse::Left) return;
 
-	if (menu.isShowed) {
-		auto promoted = menu.update(event, mousePos); if (promoted != piece::empty) {
-			for (int i = 0; i < pieces.size(); i++) {
-				if (pieces[i]->isPromoted()) {
-					Vector2i temp = pieces[i]->currentPos;
-					switch (promoted) {
-					case piece::queen:
-						pieces[i] = std::make_unique<Queen>(color_type::white); break;
-					case piece::bishop:
-						pieces[i] = std::make_unique<Bishop>(color_type::white); break;
-					case piece::knight:
-						pieces[i] = std::make_unique<Knight>(color_type::white); break;
-					case piece::rook:
-						pieces[i] = std::make_unique<Rook>(color_type::white); break;
-					}
-					pieces[i]->currentPos = temp;
-					break;
-				}
-
-			}
+		if (menu.isShowed) {
+			int promoted = menu.update(event, mousePos);
+			checkPromotion(promoted);
 		}
-	}
 	else movePiece(mousePos);
 
 	
@@ -87,12 +69,17 @@ void Chessboard::movePiece(Vector2i mousePos)
 
 	//on the second pass check for movement
 	auto type = pieces[selectedPiece]->update(pieces, clickedSquare);
+
+	//promotion
+	if (pieces[selectedPiece]->isPromoted()) {
+		menu.isShowed = true;
+		menu.setColor(pieces[selectedPiece]->color);
+	}
 	switch (type) {
 	case move_type::capture:
 		for (auto i = 0; i < pieces.size(); i++) {
 			if (i == selectedPiece) continue;
 			if (pieces[i]->currentPos == pieces[selectedPiece]->currentPos) {
-				if (pieces[selectedPiece]->isPromoted()) menu.isShowed = true;
 				pieces.erase(pieces.begin() + i);
 				break;
 			}
@@ -102,14 +89,12 @@ void Chessboard::movePiece(Vector2i mousePos)
 		for (auto i = 0; i < pieces.size(); i++) {
 			if (pieces[i]->currentPos == Vector2i(pieces[selectedPiece]->currentPos.x,
 				(pieces[selectedPiece]->currentPos.y - pieces[selectedPiece]->captureDirection))) {
-				if (pieces[selectedPiece]->isPromoted()) menu.isShowed = true;
 				pieces.erase(pieces.begin() + i);
 				break;
 			}
 		}
 		break;
 	}
-	
 
 	isPieceSelected = false;
 	if (!(type == move_type::twice || type == move_type::none)) {
@@ -118,4 +103,29 @@ void Chessboard::movePiece(Vector2i mousePos)
 		}
 	}
 
+}
+
+void Chessboard::checkPromotion(int promoted)
+{
+	if (promoted != -1) {
+		for (int i = 0; i < pieces.size(); i++) {
+			if (pieces[i]->isPromoted()) {
+				Vector2i temp = pieces[i]->currentPos;
+				color_type tempCol = pieces[i]->color;
+				switch (promoted) {
+				case 0:
+					pieces[i] = std::make_unique<Queen>(tempCol); break;
+				case 1:
+					pieces[i] = std::make_unique<Bishop>(tempCol); break;
+				case 2:
+					pieces[i] = std::make_unique<Knight>(tempCol); break;
+				case 3:
+					pieces[i] = std::make_unique<Rook>(tempCol); break;
+				}
+				pieces[i]->currentPos = temp;
+				break;
+			}
+
+		}
+	}
 }

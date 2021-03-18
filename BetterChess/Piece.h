@@ -4,11 +4,6 @@
 #include <iostream>
 using namespace sf;
 
-enum class color_type {
-	white,
-	black
-};
-
 enum class move_type {
 	move,
 	capture,

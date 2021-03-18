@@ -16,7 +16,7 @@ move_type Pawn::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i new
 bool Pawn::isPromoted()
 {
 	if (color == color_type::white && currentPos.y == 0) return true;
-	else if (color == color_type::black && currentPos.y == squareNumber) return true;
+	else if (color == color_type::black && currentPos.y == (squareNumber - 1)) return true;
 
 	return false;
 }

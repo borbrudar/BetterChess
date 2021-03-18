@@ -17,6 +17,7 @@ public:
 	void update(Event &event, Vector2i mousePos);
 private:
 	void movePiece(Vector2i mousePos);
+	void checkPromotion(int promoted);
 	std::vector<Piece::ptr> pieces;
 	Board board;
 	Texture t;

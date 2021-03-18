@@ -14,3 +14,8 @@ enum class piece {
 	pawn,
 	empty
 };
+
+enum class color_type {
+	white,
+	black
+};

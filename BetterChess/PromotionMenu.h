@@ -5,11 +5,13 @@ using namespace sf;
 
 class PromotionMenu {
 public:
-	void init(const char* path, IntRect texRect);
+	void init(const char* path);
+	void setColor(color_type color);
 	void draw(RenderWindow& window);
-	piece update(Event event, Vector2i mousePos);
+	int update(Event event, Vector2i mousePos);
 	
 	bool isShowed = false;
+private:
 	RectangleShape sprite, background;
 	Texture texture;
 };
