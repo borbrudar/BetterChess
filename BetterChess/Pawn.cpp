@@ -13,6 +13,14 @@ move_type Pawn::update(std::vector<Piece*>& pieces, Vector2i newPos)
 	return checkNewPos(newPos);
 }
 
+bool Pawn::isPromoted()
+{
+	if (color == color_type::white && currentPos.y == 0) return true;
+	else if (color == color_type::black && currentPos.y == squareNumber) return true;
+
+	return false;
+}
+
 void Pawn::generatePossibleMoves(std::vector<Piece*>& pieces)
 {
 	possibleMoves.clear();

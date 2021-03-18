@@ -4,15 +4,7 @@
 #include <iostream>
 using namespace sf;
 
-enum class piece {
-	rook,
-	knight,
-	bishop,
-	king,
-	queen,
-	pawn,
-	empty
-};
+
 
 enum class color_type {
 	white,
@@ -24,7 +16,8 @@ enum class move_type {
 	capture,
 	none,
 	passant,
-	twice
+	twice,
+	promotion
 };
 
 struct moveType {
@@ -49,7 +42,7 @@ public:
 	void draw(RenderWindow& window);
 	void updatePos();
 	void resetPassant();
-
+	virtual bool isPromoted();
 
 	bool hasMoved = false;
 	piece pieceType = piece::empty;

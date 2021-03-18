@@ -80,3 +80,8 @@ void Piece::resetPassant()
 {
 	enPassant = false;
 }
+
+bool Piece::isPromoted()
+{
+	return false;
+}

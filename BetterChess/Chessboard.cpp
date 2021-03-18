@@ -6,7 +6,6 @@ void Chessboard::init()
 	board.init("res/chessboard.jpg");
 
 	pieces.resize(7);
-	const char* path = "res/chess-pieces.png";
 	pieces[0] = new Rook(path, IntRect(853, 0, 213, 213));
 	pieces[1] = new Knight(path, IntRect(640, 0, 213, 213));
 	pieces[2] = new Bishop(path, IntRect(427, 214, 213, 213));
@@ -25,6 +24,7 @@ void Chessboard::init()
 	for(int i = 0; i < pieces.size();i++)
 		pieces[i]->updatePos();
 
+	menu.init(path, IntRect(213, 0, 4 * 213, 213));
 }
 
 void Chessboard::draw(RenderWindow& window)
@@ -33,6 +33,7 @@ void Chessboard::draw(RenderWindow& window)
 
 	for (int i = 0; i < pieces.size(); i++) pieces[i]->draw(window);
 
+	menu.draw(window);
 }
 
 void Chessboard::update(Event& event, Vector2i mousePos)
@@ -40,7 +41,32 @@ void Chessboard::update(Event& event, Vector2i mousePos)
 	if (event.type != Event::MouseButtonReleased) return;
 	if (event.mouseButton.button != Mouse::Left) return;
 
-	movePiece(mousePos);
+	if (menu.isShowed) {
+		auto promoted = menu.update(event, mousePos); if (promoted != piece::empty) {
+			for (int i = 0; i < pieces.size(); i++) {
+				if (pieces[i]->isPromoted()) {
+					Vector2i temp = pieces[i]->currentPos;
+					switch (promoted) {
+					case piece::queen:
+						pieces[i] = new Queen(path, IntRect(213, 0, 213, 213)); break;
+					case piece::bishop:
+						pieces[i] = new Bishop(path, IntRect(427, 0, 213, 213)); break;
+					case piece::knight:
+						pieces[i] = new Knight(path, IntRect(640, 0, 213, 213)); break;
+					case piece::rook:
+						pieces[i] = new Rook(path, IntRect(853, 0, 213, 213)); break;
+					}
+					pieces[i]->currentPos = temp;
+					pieces[i]->updatePos();
+					break;
+				}
+
+			}
+		}
+	}
+	else movePiece(mousePos);
+
+	
 }
 
 void Chessboard::movePiece(Vector2i mousePos)
@@ -68,6 +94,7 @@ void Chessboard::movePiece(Vector2i mousePos)
 		for (auto i = 0; i < pieces.size(); i++) {
 			if (i == selectedPiece) continue;
 			if (pieces[i]->currentPos == pieces[selectedPiece]->currentPos) {
+				if (pieces[selectedPiece]->isPromoted()) menu.isShowed = true;
 				pieces.erase(pieces.begin() + i);
 				break;
 			}
@@ -77,6 +104,7 @@ void Chessboard::movePiece(Vector2i mousePos)
 		for (auto i = 0; i < pieces.size(); i++) {
 			if (pieces[i]->currentPos == Vector2i(pieces[selectedPiece]->currentPos.x,
 				(pieces[selectedPiece]->currentPos.y - pieces[selectedPiece]->captureDirection))) {
+				if (pieces[selectedPiece]->isPromoted()) menu.isShowed = true;
 				pieces.erase(pieces.begin() + i);
 				break;
 			}
@@ -91,4 +119,5 @@ void Chessboard::movePiece(Vector2i mousePos)
 			pieces[i]->resetPassant();
 		}
 	}
+
 }
