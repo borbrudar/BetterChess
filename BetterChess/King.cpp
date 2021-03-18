@@ -2,6 +2,7 @@
 
 void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
+	possibleMoves.clear();
 	//every direction
 	for (int incx = -1, incy = -1, count = 0; count < 9; count++) {
 		Vector2i tempVec = Vector2i(currentPos.x + incx, currentPos.y + incy);
@@ -10,11 +11,10 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 
 		//update iterators
 		if (incy == 1) {
-			incy = -1;
+			incy = -2;
 			incx++;
 		}		
 		incy++;
-
 	}
 }
 
