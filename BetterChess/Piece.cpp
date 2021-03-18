@@ -1,24 +1,31 @@
 #include "Piece.h"
 
-Piece::Piece(const char* path, IntRect texRect)
+Piece::Piece(IntRect texRect)
 {
-	init(path, texRect);
+	init(texRect);
 }
 
-void Piece::init(const char* path, IntRect texRect)
+Texture Piece::texture;
+
+void Piece::loadTexture(const char* path)
 {
-	texture.loadFromFile(path);
+	if (!texture.loadFromFile(path))
+		std::cout << "Couldnt load texture" << std::endl;
+}
+
+void Piece::init(IntRect texRect)
+{
 	sprite.setTexture(&texture);
 	sprite.setTextureRect(texRect);
 	sprite.setSize(Vector2f(SCR_WIDTH / squareNumber, SCR_HEIGHT / squareNumber));
 
-	updatePos();
 	if (texRect.top < (texture.getSize().y / 2))  color = color_type::white;
 	else color = color_type::black;
 }
 
 void Piece::draw(RenderWindow& window)
 {
+	sprite.setPosition(currentPos.x * squareLength, currentPos.y * squareLength);
 	window.draw(sprite);
 }
 
@@ -27,7 +34,6 @@ move_type Piece::checkNewPos(Vector2i newPos)
 	for (int i = 0; i < possibleMoves.size(); i++) {
 		if (possibleMoves[i].move == newPos) {
 			currentPos = newPos;
-			updatePos();
 			hasMoved = true;
 			return possibleMoves[i].type;
 		}
@@ -36,7 +42,7 @@ move_type Piece::checkNewPos(Vector2i newPos)
 	return move_type::none;
 }
 
-bool Piece::checkLine(int& posx, int& posy, std::vector<Piece*> pieces)
+bool Piece::checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	bool addLine = true, addMove = true;
 	for (int j = 0; j < pieces.size(); j++) {
@@ -58,7 +64,7 @@ bool Piece::checkLine(int& posx, int& posy, std::vector<Piece*> pieces)
 	return !addLine;
 }
 
-check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces)
+check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	if (pos.x > squareNumber || pos.x < 0 || pos.y > squareNumber || pos.y < 0) return check_struct(false);
 
@@ -69,11 +75,6 @@ check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<Piece*>& pieces)
 		}
 	}
 	return check_struct(true, move_type::move);
-}
-
-void Piece::updatePos()
-{
-	sprite.setPosition(currentPos.x * squareLength, currentPos.y * squareLength);
 }
 
 void Piece::resetPassant()

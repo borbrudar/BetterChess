@@ -1,12 +1,12 @@
 #include "Bishop.h"
 
-Bishop::Bishop(const char* path, IntRect texRect)
+Bishop::Bishop(IntRect texRect)
 {
 	pieceType = piece::bishop;
-	init(path, texRect);
+	init(texRect);
 }
 
-void Bishop::generatePossibleMoves(std::vector<Piece*>& pieces)
+void Bishop::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	possibleMoves.clear();
 
@@ -20,7 +20,7 @@ void Bishop::generatePossibleMoves(std::vector<Piece*>& pieces)
 		if (checkLine(i, j, pieces)) break;
 }
 
-move_type Bishop::update(std::vector<Piece*>& pieces, Vector2i newPos)
+move_type Bishop::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {
 	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);

@@ -1,6 +1,6 @@
 #include "King.h"
 
-void King::generatePossibleMoves(std::vector<Piece*>& pieces)
+void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	//every direction
 	for (int incx = -1, incy = -1, count = 0; count < 9; count++) {
@@ -18,13 +18,13 @@ void King::generatePossibleMoves(std::vector<Piece*>& pieces)
 	}
 }
 
-King::King(const char* path, IntRect texRect)
+King::King(IntRect texRect)
 {
 	pieceType = piece::king;
-	init(path, texRect);
+	init(texRect);
 }
 
-move_type King::update(std::vector<Piece*>& pieces, Vector2i newPos)
+move_type King::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {
 	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);

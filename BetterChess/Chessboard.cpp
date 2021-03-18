@@ -4,15 +4,16 @@
 void Chessboard::init()
 {
 	board.init("res/chessboard.jpg");
+	Piece::loadTexture(path);
 
 	pieces.resize(7);
-	pieces[0] = new Rook(path, IntRect(853, 0, 213, 213));
-	pieces[1] = new Knight(path, IntRect(640, 0, 213, 213));
-	pieces[2] = new Bishop(path, IntRect(427, 214, 213, 213));
-	pieces[3] = new Queen(path, IntRect(213, 0, 213, 213));
-	pieces[4] = new King(path, IntRect(0, 213, 213, 213));
-	pieces[5] = new Pawn(path, IntRect(1066, 213, 213, 213));
-	pieces[6] = new Pawn(path, IntRect(1066, 0, 213, 213));
+	pieces[0] = std::make_unique<Rook>(IntRect(853, 0, 213, 213));
+	pieces[1] = std::make_unique<Knight>(IntRect(640, 0, 213, 213));
+	pieces[2] = std::make_unique<Bishop>(IntRect(427, 214, 213, 213));
+	pieces[3] = std::make_unique<Queen>(IntRect(213, 0, 213, 213));
+	pieces[4] = std::make_unique<King>(IntRect(0, 213, 213, 213));
+	pieces[5] = std::make_unique<Pawn>(IntRect(1066, 213, 213, 213));
+	pieces[6] = std::make_unique<Pawn>(IntRect(1066, 0, 213, 213));
 
 	pieces[0]->currentPos = { 0,0 };
 	pieces[1]->currentPos = { 3,4 };
@@ -21,8 +22,6 @@ void Chessboard::init()
 	pieces[4]->currentPos = { 5,4 };
 	pieces[5]->currentPos = { 7,1 };
 	pieces[6]->currentPos = { 6,6 };
-	for(int i = 0; i < pieces.size();i++)
-		pieces[i]->updatePos();
 
 	menu.init(path, IntRect(213, 0, 4 * 213, 213));
 }
@@ -48,16 +47,15 @@ void Chessboard::update(Event& event, Vector2i mousePos)
 					Vector2i temp = pieces[i]->currentPos;
 					switch (promoted) {
 					case piece::queen:
-						pieces[i] = new Queen(path, IntRect(213, 0, 213, 213)); break;
+						pieces[i] = std::make_unique<Queen>(IntRect(213, 0, 213, 213)); break;
 					case piece::bishop:
-						pieces[i] = new Bishop(path, IntRect(427, 0, 213, 213)); break;
+						pieces[i] = std::make_unique<Bishop>(IntRect(427, 0, 213, 213)); break;
 					case piece::knight:
-						pieces[i] = new Knight(path, IntRect(640, 0, 213, 213)); break;
+						pieces[i] = std::make_unique<Knight>(IntRect(640, 0, 213, 213)); break;
 					case piece::rook:
-						pieces[i] = new Rook(path, IntRect(853, 0, 213, 213)); break;
+						pieces[i] = std::make_unique<Rook>(IntRect(853, 0, 213, 213)); break;
 					}
 					pieces[i]->currentPos = temp;
-					pieces[i]->updatePos();
 					break;
 				}
 

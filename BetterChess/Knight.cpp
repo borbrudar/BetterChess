@@ -1,18 +1,18 @@
 #include "Knight.h"
 
-Knight::Knight(const char* path, IntRect texRect)
+Knight::Knight( IntRect texRect)
 {
 	pieceType = piece::knight;
-	init(path, texRect);
+	init(texRect);
 }
 
-move_type Knight::update(std::vector<Piece*>& board, Vector2i newPos)
+move_type Knight::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {
-	generatePossibleMoves(board);
+	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);
 }
 
-void Knight::generatePossibleMoves(std::vector<Piece*>& pieces)
+void Knight::generatePossibleMoves(std::vector<std::unique_ptr<Piece >>& pieces)
 {
 	possibleMoves.clear();
 

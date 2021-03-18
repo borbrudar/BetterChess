@@ -4,9 +4,9 @@
 
 class Pawn : public Piece {
 public:
-	Pawn(const char* path, IntRect texRect);
-	move_type update(std::vector<Piece*>& pieces, Vector2i newPos);
+	Pawn(IntRect texRect);
+	move_type update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos);
 	bool isPromoted();
 private:
-	void generatePossibleMoves(std::vector<Piece*>& pieces);
+	void generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces);
 };

@@ -1,13 +1,13 @@
 #include "Rook.h"
 #include <iostream>
 
-Rook::Rook(const char* path, IntRect texRect)
+Rook::Rook(IntRect texRect)
 {
 	pieceType = piece::rook;
-	init(path, texRect);
+	init(texRect);
 }
 
-void Rook::generatePossibleMoves(std::vector<Piece*>& pieces)
+void Rook::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	possibleMoves.clear();
 	for (int i = currentPos.x + 1; i < squareNumber; i++) {
@@ -24,7 +24,7 @@ void Rook::generatePossibleMoves(std::vector<Piece*>& pieces)
 	}
 }
 
-move_type Rook::update(std::vector<Piece*>& pieces, Vector2i newPos)
+move_type Rook::update(std::vector< std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {	
 	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);

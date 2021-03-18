@@ -3,8 +3,8 @@
 
 class King : public Piece {
 public:
-	King(const char* path, IntRect texRect);
-	move_type update(std::vector<Piece*>& pieces, Vector2i newPos);
+	King(IntRect texRect);
+	move_type update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos);
 private:
-	void generatePossibleMoves(std::vector<Piece*>& pieces);
+	void generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces);
 };

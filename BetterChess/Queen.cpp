@@ -1,12 +1,12 @@
 #include "Queen.h"
 
-Queen::Queen(const char* path, IntRect texRect)
+Queen::Queen(IntRect texRect)
 {
 	pieceType = piece::queen;
-	init(path, texRect);
+	init(texRect);
 }
 
-void Queen::generatePossibleMoves(std::vector<Piece*>& pieces)
+void Queen::generatePossibleMoves(std::vector< std::unique_ptr<Piece>>& pieces)
 {
 	//bishop
 	for (int i = currentPos.x + 1, j = currentPos.y + 1; i < squareNumber; i++, j++) 
@@ -29,7 +29,7 @@ void Queen::generatePossibleMoves(std::vector<Piece*>& pieces)
 		if (checkLine(currentPos.x, i, pieces)) break;
 }
 
-move_type Queen::update(std::vector<Piece*>& pieces, Vector2i newPos)
+move_type Queen::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {
 	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);

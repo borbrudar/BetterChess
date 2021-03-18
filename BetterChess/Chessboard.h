@@ -17,7 +17,7 @@ public:
 	void update(Event &event, Vector2i mousePos);
 private:
 	void movePiece(Vector2i mousePos);
-	std::vector<Piece*> pieces;
+	std::vector<Piece::ptr> pieces;
 	Board board;
 	Texture t;
 	

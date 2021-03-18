@@ -1,13 +1,13 @@
 #include "Pawn.h"
 
-Pawn::Pawn(const char* path, IntRect texRect)
+Pawn::Pawn(IntRect texRect)
 {
 	pieceType = piece::pawn;
-	init(path, texRect);
+	init(texRect);
 	if (color == color_type::black) captureDirection = -captureDirection;
 }
 
-move_type Pawn::update(std::vector<Piece*>& pieces, Vector2i newPos)
+move_type Pawn::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
 {
 	generatePossibleMoves(pieces);
 	return checkNewPos(newPos);
@@ -21,7 +21,7 @@ bool Pawn::isPromoted()
 	return false;
 }
 
-void Pawn::generatePossibleMoves(std::vector<Piece*>& pieces)
+void Pawn::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	possibleMoves.clear();
 
