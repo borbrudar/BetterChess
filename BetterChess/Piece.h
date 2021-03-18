@@ -10,7 +10,8 @@ enum class move_type {
 	none,
 	passant,
 	twice,
-	promotion
+	promotion,
+	castling
 };
 
 struct moveType {
@@ -55,5 +56,4 @@ protected:
 	static Texture texture;
 	RectangleShape sprite;
 	std::vector<moveType> possibleMoves;
-
 };

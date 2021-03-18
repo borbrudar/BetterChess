@@ -16,6 +16,20 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 		}		
 		incy++;
 	}
+
+	//castling
+	if (hasMoved) return;
+	for (int i = 0; i < pieces.size(); i++) {
+		if (pieces[i]->pieceType != piece::rook) continue;
+		if (pieces[i]->color != color) continue;
+		if (pieces[i]->hasMoved) continue;
+
+		if (pieces[i]->currentPos.x > currentPos.x) 
+			possibleMoves.push_back(moveType(Vector2i(currentPos.x + 2, currentPos.y), move_type::castling));
+		else possibleMoves.push_back(moveType(Vector2i(currentPos.x - 2, currentPos.y), move_type::castling));
+
+	}
+
 }
 
 King::King(color_type pieceColor)

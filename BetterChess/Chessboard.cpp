@@ -11,15 +11,15 @@ void Chessboard::init()
 	pieces[1] = std::make_unique<Knight>(color_type::white);
 	pieces[2] = std::make_unique<Bishop>(color_type::black);
 	pieces[3] = std::make_unique<Queen>(color_type::white);
-	pieces[4] = std::make_unique<King>(color_type::black);
+	pieces[4] = std::make_unique<King>(color_type::white);
 	pieces[5] = std::make_unique<Pawn>(color_type::black);
 	pieces[6] = std::make_unique<Pawn>(color_type::white);
 
-	pieces[0]->currentPos = { 0,0 };
+	pieces[0]->currentPos = { 0,7 };
 	pieces[1]->currentPos = { 3,4 };
 	pieces[2]->currentPos = { 6,0 };
 	pieces[3]->currentPos = { 1,6 };
-	pieces[4]->currentPos = { 5,4 };
+	pieces[4]->currentPos = { 4,7 };
 	pieces[5]->currentPos = { 7,1 };
 	pieces[6]->currentPos = { 6,6 };
 
@@ -92,6 +92,14 @@ void Chessboard::movePiece(Vector2i mousePos)
 				pieces.erase(pieces.begin() + i);
 				break;
 			}
+		}
+		break;
+	case move_type::castling:
+		for (auto i = 0; i < pieces.size(); i++) {
+			if (pieces[i]->pieceType != piece::rook) continue;
+			if (pieces[i]->color != pieces[selectedPiece]->color) continue;
+			if (pieces[selectedPiece]->currentPos.x == 6) pieces[i]->currentPos.x -= 2;
+			else pieces[i]->currentPos.x += 3;
 		}
 		break;
 	}
