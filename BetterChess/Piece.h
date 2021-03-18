@@ -37,7 +37,7 @@ public:
 	virtual move_type update(std::vector<std::unique_ptr<Piece>>& board, Vector2i newPos) = 0;
 	static void loadTexture(const char* path);
 
-	void init(Vector2i square);
+	void init(color_type pieceColor);
 	void draw(RenderWindow& window);
 	void resetPassant();
 	virtual bool isPromoted();
@@ -55,6 +55,7 @@ protected:
 	move_type checkNewPos(Vector2i newPos);
 	bool checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>> &pieces);
 	check_struct checkIfNewPosOk(Vector2i pos, std::vector<std::unique_ptr<Piece>>& pieces);
+	int choosePieceTexture();
 
 	static Texture texture;
 	RectangleShape sprite;

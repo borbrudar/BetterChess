@@ -3,7 +3,7 @@
 
 class Bishop : public Piece {
 public:
-	Bishop(Vector2i square);
+	Bishop(color_type pieceColor);
 	move_type update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos);
 private:
 	void generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces);

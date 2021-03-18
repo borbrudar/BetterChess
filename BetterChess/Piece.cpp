@@ -8,15 +8,19 @@ void Piece::loadTexture(const char* path)
 		std::cout << "Couldnt load texture" << std::endl;
 }
 
-void Piece::init(Vector2i square)
+void Piece::init(color_type pieceColor)
 {
-	IntRect temp = IntRect(square, Vector2i(realSquareSize, realSquareSize));
+	int x = choosePieceTexture(), y;
+	if (pieceColor == color_type::white) y = 0;
+	else y = realSquareSize;
+
+	IntRect temp = IntRect(x,y, realSquareSize, realSquareSize);
+
 	sprite.setTexture(&texture);
 	sprite.setTextureRect(temp);
 	sprite.setSize(Vector2f(SCR_WIDTH / squareNumber, SCR_HEIGHT / squareNumber));
 
-	if (temp.top < (texture.getSize().y / 2))  color = color_type::white;
-	else color = color_type::black;
+	color = pieceColor;
 }
 
 void Piece::draw(RenderWindow& window)
@@ -71,6 +75,24 @@ check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<std::unique_ptr<Pi
 		}
 	}
 	return check_struct(true, move_type::move);
+}
+
+int Piece::choosePieceTexture()
+{
+	switch (pieceType) {
+	case piece::king:
+		return 0; break;
+	case piece::queen:
+		return realSquareSize;	break;
+	case piece::bishop:
+		return 2 * realSquareSize;	break;
+	case piece::knight:
+		return 3 * realSquareSize;	break;
+	case piece::rook:
+		return 4 * realSquareSize;	break;
+	case piece::pawn:
+		return 5 * realSquareSize;	break;
+	}
 }
 
 void Piece::resetPassant()

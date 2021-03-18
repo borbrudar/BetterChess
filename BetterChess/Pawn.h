@@ -4,7 +4,7 @@
 
 class Pawn : public Piece {
 public:
-	Pawn(Vector2i square);
+	Pawn(color_type pieceColor);
 	move_type update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos);
 	bool isPromoted();
 private:

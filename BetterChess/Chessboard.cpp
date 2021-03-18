@@ -7,13 +7,13 @@ void Chessboard::init()
 	Piece::loadTexture(path);
 
 	pieces.resize(7);
-	pieces[0] = std::make_unique<Rook>(Vector2i(853, 0));
-	pieces[1] = std::make_unique<Knight>(Vector2i(640, 0));
-	pieces[2] = std::make_unique<Bishop>(Vector2i(427, 214));
-	pieces[3] = std::make_unique<Queen>(Vector2i(213, 0));
-	pieces[4] = std::make_unique<King>(Vector2i(0, 213));
-	pieces[5] = std::make_unique<Pawn>(Vector2i(1066, 213));
-	pieces[6] = std::make_unique<Pawn>(Vector2i(1066, 0));
+	pieces[0] = std::make_unique<Rook>(color_type::white);
+	pieces[1] = std::make_unique<Knight>(color_type::white);
+	pieces[2] = std::make_unique<Bishop>(color_type::black);
+	pieces[3] = std::make_unique<Queen>(color_type::white);
+	pieces[4] = std::make_unique<King>(color_type::black);
+	pieces[5] = std::make_unique<Pawn>(color_type::black);
+	pieces[6] = std::make_unique<Pawn>(color_type::white);
 
 	pieces[0]->currentPos = { 0,0 };
 	pieces[1]->currentPos = { 3,4 };
@@ -47,13 +47,13 @@ void Chessboard::update(Event& event, Vector2i mousePos)
 					Vector2i temp = pieces[i]->currentPos;
 					switch (promoted) {
 					case piece::queen:
-						pieces[i] = std::make_unique<Queen>(Vector2i(213, 0)); break;
+						pieces[i] = std::make_unique<Queen>(color_type::white); break;
 					case piece::bishop:
-						pieces[i] = std::make_unique<Bishop>(Vector2i(427, 0)); break;
+						pieces[i] = std::make_unique<Bishop>(color_type::white); break;
 					case piece::knight:
-						pieces[i] = std::make_unique<Knight>(Vector2i(640, 0)); break;
+						pieces[i] = std::make_unique<Knight>(color_type::white); break;
 					case piece::rook:
-						pieces[i] = std::make_unique<Rook>(Vector2i(853, 0)); break;
+						pieces[i] = std::make_unique<Rook>(color_type::white); break;
 					}
 					pieces[i]->currentPos = temp;
 					break;

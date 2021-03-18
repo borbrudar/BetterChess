@@ -1,10 +1,10 @@
 #include "Rook.h"
 #include <iostream>
 
-Rook::Rook(Vector2i square)
+Rook::Rook(color_type pieceColor)
 {
 	pieceType = piece::rook;
-	init(square);
+	init(pieceColor);
 }
 
 void Rook::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)

@@ -18,10 +18,10 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 	}
 }
 
-King::King(Vector2i square)
+King::King(color_type pieceColor)
 {
 	pieceType = piece::king;
-	init(square);
+	init(pieceColor);
 }
 
 move_type King::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)

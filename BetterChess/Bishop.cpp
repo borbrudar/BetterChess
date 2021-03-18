@@ -1,9 +1,9 @@
 #include "Bishop.h"
 
-Bishop::Bishop(Vector2i square)
+Bishop::Bishop(color_type pieceColor)
 {
 	pieceType = piece::bishop;
-	init(square);
+	init(pieceColor);
 }
 
 void Bishop::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)

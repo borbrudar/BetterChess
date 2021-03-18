@@ -1,9 +1,9 @@
 #include "Queen.h"
 
-Queen::Queen(Vector2i square)
+Queen::Queen(color_type pieceColor)
 {
 	pieceType = piece::queen;
-	init(square);
+	init(pieceColor);
 }
 
 void Queen::generatePossibleMoves(std::vector< std::unique_ptr<Piece>>& pieces)
