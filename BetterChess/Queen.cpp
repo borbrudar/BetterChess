@@ -1,9 +1,9 @@
 #include "Queen.h"
 
-Queen::Queen(IntRect texRect)
+Queen::Queen(Vector2i square)
 {
 	pieceType = piece::queen;
-	init(texRect);
+	init(square);
 }
 
 void Queen::generatePossibleMoves(std::vector< std::unique_ptr<Piece>>& pieces)

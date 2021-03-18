@@ -1,10 +1,5 @@
 #include "Piece.h"
 
-Piece::Piece(IntRect texRect)
-{
-	init(texRect);
-}
-
 Texture Piece::texture;
 
 void Piece::loadTexture(const char* path)
@@ -13,13 +8,14 @@ void Piece::loadTexture(const char* path)
 		std::cout << "Couldnt load texture" << std::endl;
 }
 
-void Piece::init(IntRect texRect)
+void Piece::init(Vector2i square)
 {
+	IntRect temp = IntRect(square, Vector2i(realSquareSize, realSquareSize));
 	sprite.setTexture(&texture);
-	sprite.setTextureRect(texRect);
+	sprite.setTextureRect(temp);
 	sprite.setSize(Vector2f(SCR_WIDTH / squareNumber, SCR_HEIGHT / squareNumber));
 
-	if (texRect.top < (texture.getSize().y / 2))  color = color_type::white;
+	if (temp.top < (texture.getSize().y / 2))  color = color_type::white;
 	else color = color_type::black;
 }
 

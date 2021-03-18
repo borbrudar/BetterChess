@@ -4,8 +4,6 @@
 #include <iostream>
 using namespace sf;
 
-
-
 enum class color_type {
 	white,
 	black
@@ -36,11 +34,10 @@ struct check_struct {
 class Piece{
 public:
 	Piece() = default;
-	Piece(IntRect texRect);
 	virtual move_type update(std::vector<std::unique_ptr<Piece>>& board, Vector2i newPos) = 0;
 	static void loadTexture(const char* path);
 
-	void init(IntRect texRect);
+	void init(Vector2i square);
 	void draw(RenderWindow& window);
 	void resetPassant();
 	virtual bool isPromoted();

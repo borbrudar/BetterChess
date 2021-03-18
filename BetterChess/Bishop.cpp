@@ -1,9 +1,9 @@
 #include "Bishop.h"
 
-Bishop::Bishop(IntRect texRect)
+Bishop::Bishop(Vector2i square)
 {
 	pieceType = piece::bishop;
-	init(texRect);
+	init(square);
 }
 
 void Bishop::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)

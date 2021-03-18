@@ -1,9 +1,9 @@
 #include "Pawn.h"
 
-Pawn::Pawn(IntRect texRect)
+Pawn::Pawn(Vector2i square)
 {
 	pieceType = piece::pawn;
-	init(texRect);
+	init(square);
 	if (color == color_type::black) captureDirection = -captureDirection;
 }
 

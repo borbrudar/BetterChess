@@ -1,9 +1,9 @@
 #include "Knight.h"
 
-Knight::Knight( IntRect texRect)
+Knight::Knight(Vector2i square)
 {
 	pieceType = piece::knight;
-	init(texRect);
+	init(square);
 }
 
 move_type Knight::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)

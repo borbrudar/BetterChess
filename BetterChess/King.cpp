@@ -18,10 +18,10 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 	}
 }
 
-King::King(IntRect texRect)
+King::King(Vector2i square)
 {
 	pieceType = piece::king;
-	init(texRect);
+	init(square);
 }
 
 move_type King::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
