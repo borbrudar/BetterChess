@@ -24,9 +24,24 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 		if (pieces[i]->color != color) continue;
 		if (pieces[i]->hasMoved) continue;
 
-		if (pieces[i]->currentPos.x > currentPos.x) 
-			possibleMoves.push_back(moveType(Vector2i(currentPos.x + 2, currentPos.y), move_type::castling));
-		else possibleMoves.push_back(moveType(Vector2i(currentPos.x - 2, currentPos.y), move_type::castling));
+		int incx = -2;
+		if (pieces[i]->currentPos.x > currentPos.x) {
+			incx = 2;
+			for (int j = 0; j < pieces.size(); j++){
+				if (pieces[j]->currentPos == Vector2i(currentPos.x + 1, currentPos.y)) return;
+				if (pieces[j]->currentPos == Vector2i(currentPos.x + 2, currentPos.y)) return;
+			}
+		}
+		else {
+			for (int j = 0; j < pieces.size(); j++) {
+				if (pieces[j]->currentPos == Vector2i(currentPos.x - 1, currentPos.y)) return;
+				if (pieces[j]->currentPos == Vector2i(currentPos.x - 2, currentPos.y)) return;
+				if (pieces[j]->currentPos == Vector2i(currentPos.x - 3, currentPos.y)) return;
+			}
+		}
+
+		possibleMoves.push_back(moveType(Vector2i(currentPos.x + incx, currentPos.y), move_type::castling));
+
 
 	}
 
