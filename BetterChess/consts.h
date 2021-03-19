@@ -17,5 +17,6 @@ enum class piece {
 
 enum class color_type {
 	white,
-	black
+	black,
+	none
 };

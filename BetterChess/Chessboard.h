@@ -23,7 +23,7 @@ private:
 	BoardV background;
 	Texture t;
 	
-	Board board;
+	Board *board;
 
 	PromotionMenu menu;
 	Vector2i selectedSquare;

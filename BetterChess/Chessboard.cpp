@@ -5,6 +5,7 @@ void Chessboard::init()
 {
 	background.init("res/chessboard.jpg");
 	Piece::loadTexture(path);
+	board = Board::getInstance();
 
 	pieces.resize(7);
 	pieces[0] = std::make_unique<Rook>(color_type::white);
@@ -40,10 +41,10 @@ void Chessboard::update(Event& event, Vector2i mousePos)
 	if (event.type != Event::MouseButtonReleased) return;
 	if (event.mouseButton.button != Mouse::Left) return;
 
-		if (menu.isShowed) {
-			int promoted = menu.update(event, mousePos);
-			checkPromotion(promoted);
-		}
+	if (menu.isShowed) {
+		int promoted = menu.update(event, mousePos);
+		checkPromotion(promoted);
+	}
 	else movePiece(mousePos);
 
 	
@@ -136,6 +137,7 @@ void Chessboard::movePiece(Vector2i mousePos)
 		}
 	}
 
+	board->updateBoard(pieces);
 }
 
 void Chessboard::checkPromotion(int promoted)
