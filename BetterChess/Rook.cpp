@@ -23,10 +23,3 @@ void Rook::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 		if (checkLine(currentPos.x, i, pieces)) break;
 	}
 }
-
-move_type Rook::update(std::vector< std::unique_ptr<Piece>>& pieces, Vector2i newPos)
-{	
-	generatePossibleMoves(pieces);
-	return checkNewPos(newPos);
-}
-

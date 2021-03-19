@@ -7,12 +7,6 @@ Pawn::Pawn(color_type pieceColor)
 	if (color == color_type::black) captureDirection = -captureDirection;
 }
 
-move_type Pawn::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
-{
-	generatePossibleMoves(pieces);
-	return checkNewPos(newPos);
-}
-
 bool Pawn::isPromoted()
 {
 	if (color == color_type::white && currentPos.y == 0) return true;

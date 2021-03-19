@@ -68,7 +68,11 @@ void Chessboard::movePiece(Vector2i mousePos)
 	}
 
 	//on the second pass check for movement
-	auto type = pieces[selectedPiece]->update(pieces, clickedSquare);
+	for (int i = 0; i < pieces.size(); i++) {
+		pieces[i]->generatePossibleMoves(pieces);
+	}
+	if (pieces[selectedPiece]->isChecked(pieces, clickedSquare)) return;
+	auto type = pieces[selectedPiece]->checkNewPos(clickedSquare);
 
 	//promotion
 	if (pieces[selectedPiece]->isPromoted()) {

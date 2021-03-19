@@ -28,9 +28,3 @@ void Queen::generatePossibleMoves(std::vector< std::unique_ptr<Piece>>& pieces)
 	for (int i = currentPos.y - 1; i >= 0; i--) 
 		if (checkLine(currentPos.x, i, pieces)) break;
 }
-
-move_type Queen::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
-{
-	generatePossibleMoves(pieces);
-	return checkNewPos(newPos);
-}

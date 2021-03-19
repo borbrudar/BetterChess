@@ -1,5 +1,23 @@
 #include "King.h"
 
+King::King(color_type pieceColor)
+{
+	pieceType = piece::king;
+	init(pieceColor);
+}
+
+bool King::isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
+{
+	for (int i = 0; i < pieces.size(); i++) {
+		if (pieces[i]->color == color) continue;
+		for (int j = 0; j < pieces[i]->possibleMoves.size(); j++) {
+			if (pieces[i]->possibleMoves[j].move == newPos) return true;
+		}
+	}
+
+	return false;
+}
+
 void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	possibleMoves.clear();
@@ -45,16 +63,4 @@ void King::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 
 	}
 
-}
-
-King::King(color_type pieceColor)
-{
-	pieceType = piece::king;
-	init(pieceColor);
-}
-
-move_type King::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
-{
-	generatePossibleMoves(pieces);
-	return checkNewPos(newPos);
 }

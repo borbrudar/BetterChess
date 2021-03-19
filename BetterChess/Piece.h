@@ -30,8 +30,10 @@ struct check_struct {
 class Piece{
 public:
 	Piece() = default;
-	virtual move_type update(std::vector<std::unique_ptr<Piece>>& board, Vector2i newPos) = 0;
+	virtual void generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces) = 0;
 	static void loadTexture(const char* path);
+	move_type checkNewPos(Vector2i newPos);
+	virtual bool isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos) { return false; };
 
 	void init(color_type pieceColor);
 	void draw(RenderWindow& window);
@@ -47,13 +49,12 @@ public:
 	//for pawns
 	bool enPassant = false;
 	int captureDirection = -1; // -1 white, 1 black
+	std::vector<moveType> possibleMoves;
 protected:
-	move_type checkNewPos(Vector2i newPos);
 	bool checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>> &pieces);
 	check_struct checkIfNewPosOk(Vector2i pos, std::vector<std::unique_ptr<Piece>>& pieces);
 	int choosePieceTexture();
 
 	static Texture texture;
 	RectangleShape sprite;
-	std::vector<moveType> possibleMoves;
 };

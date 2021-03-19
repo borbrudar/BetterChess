@@ -6,12 +6,6 @@ Knight::Knight(color_type pieceColor)
 	init(pieceColor);
 }
 
-move_type Knight::update(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPos)
-{
-	generatePossibleMoves(pieces);
-	return checkNewPos(newPos);
-}
-
 void Knight::generatePossibleMoves(std::vector<std::unique_ptr<Piece >>& pieces)
 {
 	possibleMoves.clear();
