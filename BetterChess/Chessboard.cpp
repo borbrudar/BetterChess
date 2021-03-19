@@ -12,7 +12,7 @@ void Chessboard::init()
 	pieces[2] = std::make_unique<Bishop>(color_type::black);
 	pieces[3] = std::make_unique<Queen>(color_type::white);
 	pieces[4] = std::make_unique<King>(color_type::white);
-	pieces[5] = std::make_unique<Pawn>(color_type::black);
+	pieces[5] = std::make_unique<Pawn>(color_type::white);
 	pieces[6] = std::make_unique<King>(color_type::black);
 
 	pieces[0]->currentPos = { 0,7 };
@@ -20,7 +20,7 @@ void Chessboard::init()
 	pieces[2]->currentPos = { 6,0 };
 	pieces[3]->currentPos = { 1,7 };
 	pieces[4]->currentPos = { 4,7 };
-	pieces[5]->currentPos = { 7,1 };
+	pieces[5]->currentPos = { 7,5 };
 	pieces[6]->currentPos = { 6,7 };
 
 	menu.init(path);
@@ -71,24 +71,24 @@ void Chessboard::movePiece(Vector2i mousePos)
 	for (int i = 0; i < pieces.size(); i++) {
 		pieces[i]->generatePossibleMoves(pieces);
 	}
-	for (int i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->pieceType != piece::king) continue;
+	//check
+	if (pieces[selectedPiece]->pieceType == piece::king) {
 
-		Vector2i temp = pieces[selectedPiece]->currentPos;
-		pieces[selectedPiece]->currentPos = clickedSquare;
-		bool ret;
-		if (i == selectedPiece) {
-			ret = pieces[selectedPiece]->isChecked(pieces, clickedSquare);
+		if (pieces[selectedPiece]->isChecked(pieces, clickedSquare)) return;
+	}
+	else {
+		for (int i = 0; i < pieces.size(); i++) {
+			if (pieces[i]->pieceType != piece::king) continue;
+
+			Vector2i temp = pieces[selectedPiece]->currentPos;
+			pieces[selectedPiece]->currentPos = clickedSquare;
+
+			bool ret = pieces[i]->isChecked(pieces, pieces[i]->currentPos);
+
 			pieces[selectedPiece]->currentPos = temp;
 			if (ret) return;
 			else break;
-		} 
-		else {
-			ret = pieces[i]->isChecked(pieces, pieces[i]->currentPos);
-			pieces[selectedPiece]->currentPos = temp;
-			//pinning works, also checking
-			if (ret && pieces[selectedPiece]->color == pieces[i]->color) return;
-
+			
 		}
 	}
 
@@ -99,6 +99,7 @@ void Chessboard::movePiece(Vector2i mousePos)
 		menu.isShowed = true;
 		menu.setColor(pieces[selectedPiece]->color);
 	}
+	//move type
 	switch (type) {
 	case move_type::capture:
 		for (auto i = 0; i < pieces.size(); i++) {

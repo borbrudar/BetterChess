@@ -19,7 +19,6 @@ bool King::isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPo
 		if (leftD != check::empty) break;
 		leftD = checkLine(i, j, pieces, 1);
 	}
-
 	for (int i = newPos.x - 1, j = newPos.y + 1; i >= 0; i--, j++) {
 		if (rightD != check::empty) break;
 		rightD = checkLine(i, j, pieces, 1);
@@ -83,6 +82,23 @@ bool King::isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPo
 		incy = -incy;
 	}
 
+	//kings
+	for (int i = 0; i < pieces.size(); i++) {
+		if (!(pieces[i]->pieceType == piece::king && pieces[i]->color != color)) continue;
+		for (int j = 0; j < possibleMoves.size(); j++) {
+			if (pieces[i]->possibleMoves[j].move == newPos) return true;
+		}
+	}
+
+	//pawns
+	for (int pi = 0; pi < pieces.size(); pi++) {
+		if (pieces[pi]->pieceType != piece::pawn) continue;
+		for (int i = 0; i < possibleMoves.size(); i++) {
+			for (int j = 0; j < pieces[pi]->possibleMoves.size(); j++) {
+				if (possibleMoves[i].move == pieces[pi]->possibleMoves[j].move) return true;
+			}
+		}
+	}
 
 	std::cout << "leftD: " << std::to_string((int)leftD) << std::endl;
 	std::cout << "rightD: " << std::to_string((int)rightD) << std::endl;
@@ -146,13 +162,15 @@ check King::checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>>&
 			if (pieces[j]->color == color) return check::not_check;
 			//lines
 			if (!diag) {
-				if (pieces[j]->pieceType == piece::queen || pieces[j]->pieceType == piece::rook) return check::check;
-				else return check::not_check;
-			}//diagonals
-			else {
-				if (pieces[j]->pieceType == piece::queen || pieces[j]->pieceType == piece::bishop) return check::check;
-				else return check::not_check;
+				if (pieces[j]->pieceType == piece::queen || pieces[j]->pieceType == piece::rook)
+					return check::check;
 			}
+			//diagonals
+			else if (pieces[j]->pieceType == piece::queen || pieces[j]->pieceType == piece::bishop) 
+					return check::check;
+			
+
+			return check::not_check;
 		}
 	}
 
