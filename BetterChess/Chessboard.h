@@ -1,6 +1,6 @@
 #pragma once
 #include "Piece.h"
-#include "Board.h"
+#include "BoardV.h"
 #include "Rook.h"
 #include "Knight.h"
 #include "Bishop.h"
@@ -8,6 +8,7 @@
 #include "King.h"
 #include "Pawn.h"
 #include "PromotionMenu.h"
+#include "Board.h"
 #include <vector>
 
 class Chessboard {
@@ -19,9 +20,11 @@ private:
 	void movePiece(Vector2i mousePos);
 	void checkPromotion(int promoted);
 	std::vector<Piece::ptr> pieces;
-	Board board;
+	BoardV background;
 	Texture t;
 	
+	Board board;
+
 	PromotionMenu menu;
 	Vector2i selectedSquare;
 	bool isPieceSelected = false;
