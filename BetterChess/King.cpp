@@ -93,18 +93,11 @@ bool King::isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPo
 	//pawns
 	for (int pi = 0; pi < pieces.size(); pi++) {
 		if (pieces[pi]->pieceType != piece::pawn) continue;
-		for (int i = 0; i < possibleMoves.size(); i++) {
-			for (int j = 0; j < pieces[pi]->possibleMoves.size(); j++) {
-				if (possibleMoves[i].move == pieces[pi]->possibleMoves[j].move) return true;
-			}
-		}
+			Vector2i current = pieces[pi]->currentPos;
+			int dir = pieces[pi]->captureDirection;
+			if (newPos == Vector2i(current.x + 1, current.y + dir)) return true;
+			if (newPos == Vector2i(current.x - 1, current.y + dir)) return true;
 	}
-
-	std::cout << "leftD: " << std::to_string((int)leftD) << std::endl;
-	std::cout << "rightD: " << std::to_string((int)rightD) << std::endl;
-	std::cout << "hor: " << std::to_string((int)hor) << std::endl;
-	std::cout << "vert: " << std::to_string((int)vert) << std::endl;
-	std::cout << "knight: " << std::to_string(knightCheck) << std::endl;
 
 	return (leftD == check::check || rightD == check::check || 
 		vert == check::check || hor == check::check || knightCheck);
