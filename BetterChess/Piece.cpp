@@ -67,15 +67,12 @@ bool Piece::checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>>&
 
 check_struct Piece::checkIfNewPosOk(Vector2i pos, std::vector<std::unique_ptr<Piece>>& pieces)
 {
-	if (pos.x > squareNumber || pos.x < 0 || pos.y > squareNumber || pos.y < 0) return check_struct(false, move_type::none);
+	Square newPos = grid->getByLocation(pos);
+	if (newPos.outOfBounds) return check_struct(false, move_type::none);
 
-	for (int i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->currentPos == pos) {
-			if (pieces[i]->color != color) return check_struct(true, move_type::capture);
-			else return check_struct(false, move_type::none);
-		}
-	}
-	return check_struct(true, move_type::move);
+	if (newPos.pieceType == piece::empty) return check_struct(true, move_type::move);
+
+	if (newPos.color != color) return check_struct(true, move_type::capture);
 }
 
 int Piece::choosePieceTexture()
