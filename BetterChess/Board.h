@@ -3,6 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "Square.h"
+#include "Exception.h"
 
 class Piece;
 using namespace sf;
