@@ -8,11 +8,11 @@
 #include "King.h"
 #include "Pawn.h"
 #include "PromotionMenu.h"
-#include "Board.h"
 #include <vector>
 
 class Chessboard {
 public:
+	Chessboard() = default;
 	void init();
 	void draw(RenderWindow& window);
 	void update(Event &event, Vector2i mousePos);
@@ -23,7 +23,6 @@ private:
 	BoardV background;
 	Texture t;
 	
-	Board board;
 
 	PromotionMenu menu;
 	Vector2i selectedSquare;
