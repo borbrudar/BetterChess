@@ -1,16 +1,22 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "consts.h"
+#include <vector>
 
-using namespace sf;
+struct Square {
+	piece pieceType;
+	color_type color;
+};
 
 class Board {
 public:
-	void init(const char* path);
-	void draw(RenderWindow& window);
-	void flip();
+	static Board* getInstance();
+	Board(Board& other) = delete;
+	void operator=(const Board &) = delete;
 private:
-	Texture boardT;
-	Sprite board;
+	Board() = default;
+	static Board* instance;
 
-	int rotation = 90;
+	std::vector<Square> board;
 };
+
+Board* Board::instance = nullptr;

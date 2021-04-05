@@ -3,7 +3,7 @@
 
 void Chessboard::init()
 {
-	board.init("res/chessboard.jpg");
+	background.init("res/chessboard.jpg");
 	Piece::loadTexture(path);
 
 	pieces.resize(7);
@@ -28,7 +28,7 @@ void Chessboard::init()
 
 void Chessboard::draw(RenderWindow& window)
 {
-	board.draw(window);
+	background.draw(window);
 
 	for (int i = 0; i < pieces.size(); i++) pieces[i]->draw(window);
 
