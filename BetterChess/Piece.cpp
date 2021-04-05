@@ -10,7 +10,6 @@ void Piece::loadTexture(const char* path)
 
 void Piece::init(color_type pieceColor)
 {
-	grid = Board::getInstance();
 	int x = choosePieceTexture(), y;
 	if (pieceColor == color_type::white) y = 0;
 	else y = realSquareSize;

@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "consts.h"
 #include <iostream>
-#include "Board.h"
 using namespace sf;
 
 enum class move_type {
@@ -42,7 +41,6 @@ public:
 	virtual bool isPromoted();
 
 	using ptr = std::unique_ptr<Piece>;
-	Board* grid;
 
 	bool hasMoved = false;
 	piece pieceType = piece::empty;
