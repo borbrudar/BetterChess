@@ -8,7 +8,6 @@ Queen::Queen(color_type pieceColor)
 
 void Queen::generatePossibleMoves(std::vector< std::unique_ptr<Piece>>& pieces)
 {
-	possibleMoves.clear();
 	//bishop
 	for (int i = currentPos.x + 1, j = currentPos.y + 1; i < squareNumber; i++, j++) 
 		if (checkLine(i, j, pieces)) break;
