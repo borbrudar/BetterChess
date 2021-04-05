@@ -36,6 +36,6 @@ std::vector<Vector2i> Board::getByPieceType(piece type, color_type color)
 
 Square Board::getByLocation(Vector2i pos)
 {
-	if (pos.x + (pos.y * squareNumber) >= squares.size()) return Square(true);
+	if (pos.x + (pos.y * squareNumber) >= squares.size()) return Square();
 	return squares[pos.x + (pos.y * squareNumber)];
 }

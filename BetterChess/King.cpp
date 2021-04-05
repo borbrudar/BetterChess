@@ -85,7 +85,7 @@ bool King::isChecked(std::vector<std::unique_ptr<Piece>>& pieces, Vector2i newPo
 	//kings
 	for (int i = 0; i < pieces.size(); i++) {
 		if (!(pieces[i]->pieceType == piece::king && pieces[i]->color != color)) continue;
-		for (int j = 0; j < pieces[i]->possibleMoves.size(); j++) {
+		for (int j = 0; j < possibleMoves.size(); j++) {
 			if (pieces[i]->possibleMoves[j].move == newPos) return true;
 		}
 	}
