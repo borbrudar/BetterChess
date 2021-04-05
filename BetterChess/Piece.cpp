@@ -46,17 +46,18 @@ move_type Piece::checkNewPos(Vector2i newPos)
 bool Piece::checkLine(int& posx, int& posy, std::vector<std::unique_ptr<Piece>>& pieces)
 {
 	bool addLine = true, addMove = true;
-	Square temp = grid->getByLocation(Vector2i(posx, posy));
+	for (int j = 0; j < pieces.size(); j++) {
+		if (pieces[j]->currentPos == Vector2i(posx, posy)) {
+			addLine = false;
 
-	if (temp.pieceType != piece::empty) {
-		addLine = false;
-
-		if (temp.color == color) addMove = false;
+			if (pieces[j]->color == color) addMove = false;
+			else addMove = true;
+		}
 	}
-
 	if (addMove) {
 		move_type addType;
-		addLine ? addType = move_type::move : addType = move_type::capture;
+		if (!addLine) addType = move_type::capture;
+		else addType = move_type::move;
 
 		possibleMoves.push_back(moveType(Vector2i(posx, posy), addType));
 	}
