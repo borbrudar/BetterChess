@@ -34,8 +34,8 @@ std::vector<Vector2i> Board::getByPieceType(piece type, color_type color)
 	return pieces;
 }
 
-Square Board::getByLocation(Vector2i pos)
+Piece& Board::getByLocation(Vector2i pos)
 {
 	if (pos.x + (pos.y * squareNumber) >= squares.size()) return Square(true);
-	return squares[pos.x + (pos.y * squareNumber)];
+	return instance->squares[pos.x + (pos.y * squareNumber)];
 }

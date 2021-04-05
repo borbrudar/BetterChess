@@ -25,15 +25,16 @@ void Pawn::generatePossibleMoves(std::vector<std::unique_ptr<Piece>>& pieces)
 
 
 	for (int i = 0; i < pieces.size(); i++) {
+	
 	//basic
-	if (pieces[i]->currentPos == Vector2i(currentPos.x, currentPos.y + captureDirection)) forward = false;
-	if (pieces[i]->currentPos == Vector2i(currentPos.x + 1, currentPos.y + captureDirection)) right = true;
-	if (pieces[i]->currentPos == Vector2i(currentPos.x - 1, currentPos.y + captureDirection)) left = true;
+	if (grid->getByLocation(Vector2i(currentPos.x, currentPos.y + captureDirection)).pieceType != piece::empty) forward = false;
+	if (grid->getByLocation(Vector2i(currentPos.x + 1, currentPos.y + captureDirection)).pieceType != piece::empty) right = true;
+	if (grid->getByLocation(Vector2i(currentPos.x - 1, currentPos.y + captureDirection)).pieceType != piece::empty) left = true;
 
 	//double first move
-	if (!hasMoved) {
-		if (pieces[i]->currentPos == Vector2i(currentPos.x, currentPos.y + 2 * captureDirection)) two = false;
-	}
+	if (!hasMoved && 
+		grid->getByLocation(Vector2i(currentPos.x, currentPos.y + 2 * captureDirection)).pieceType != piece::empty) 
+		two = false;
 
 	//en passant
 	if (pieces[i]->currentPos == Vector2i(currentPos.x + 1, currentPos.y) && pieces[i]->enPassant)  en_right = true;
